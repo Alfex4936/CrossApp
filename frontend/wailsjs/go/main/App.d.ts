@@ -5,3 +5,5 @@ import {main} from "../models/models"
 export function Greet(arg1: string): Promise<string>;
 
 export function Parse(url: string, length: number): Promise<Array<main.Notice>>;
+
+export function GetWeather(): Promise<main.Weather>;
