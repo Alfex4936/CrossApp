@@ -1,6 +1,6 @@
 # 웹 앱 테스트
 
-![스크린샷, 2022-06-22 11-08-15](https://user-images.githubusercontent.com/2356749/174928072-552a39e6-adcb-4e16-afb8-3fed7783d988.png)
+![스크린샷, 2022-06-22 22-06-59](https://user-images.githubusercontent.com/2356749/175036483-6ef84780-a7de-4527-bec0-a8e2351a55cf.png)
 
 # 소개
 
@@ -12,4 +12,4 @@ Go + TypeScript + Svelte 를 이용한 모든 OS에서 돌아가는 앱
 
 # 빌드
 
-Windows: wails build -upx -platform=windows/arm64
+Windows: wails build -upx -platform=windows

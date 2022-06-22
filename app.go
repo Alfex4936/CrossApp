@@ -46,7 +46,8 @@ type Notice struct {
 	Writer   string `json:"writer"`
 }
 
-func (a *App) Parse(url string, length int) []Notice {
+/// Parse 공지 불러오는 함수 (url, length) -> Promise<Notice[]>
+func (a *App) Parse(url string, length int) ([]Notice, error) {
 	ajouHTML := url
 	if url == "" { // As default, use main link
 		ajouHTML = fmt.Sprintf("%v?mode=list&articleLimit=%v&article.offset=0", AjouLink, length)
@@ -57,14 +58,14 @@ func (a *App) Parse(url string, length int) []Notice {
 	resp, err := soup.Get(ajouHTML)
 	if err != nil {
 		fmt.Println("[Parser] Check your HTML connection.", err)
-		return notices
+		return notices, err
 	}
 	doc := soup.HTMLParse(resp)
 
 	ids := doc.FindAll("td", "class", "b-num-box")
 	if len(ids) == 0 {
 		fmt.Println("[Parser] Check your parser.")
-		return notices
+		return notices, err
 	}
 
 	titles := doc.FindAll("div", "class", "b-title-box")
@@ -94,7 +95,7 @@ func (a *App) Parse(url string, length int) []Notice {
 
 	// fmt.Printf("%v", notices)
 
-	return notices
+	return notices, nil
 }
 
 const NaverWeather = "https://m.search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%EB%82%A0%EC%94%A8+%EB%A7%A4%ED%83%843%EB%8F%99&oquery=%EB%82%A0%EC%94%A8"
