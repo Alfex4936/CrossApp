@@ -1,6 +1,6 @@
 # 웹 앱 테스트
 
-![스크린샷, 2022-06-22 22-06-59](https://user-images.githubusercontent.com/2356749/175036483-6ef84780-a7de-4527-bec0-a8e2351a55cf.png)
+![Peek 2022-06-24 00-53](https://user-images.githubusercontent.com/2356749/175342331-6193661d-7050-477a-adad-4c75fbb57aa8.gif)
 
 # 소개
 

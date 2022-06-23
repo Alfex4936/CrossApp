@@ -33,6 +33,8 @@ export namespace main {
         uv: string;
         sunset: string;
         icon: string;
+        tmrw_rain_day: string;
+        tmrw_rain_night: string;
 
         static createFrom(source: any = {}) {
             return new Weather(source);
@@ -46,6 +48,8 @@ export namespace main {
             this.current_stat = source["current_stat"];
             this.rain_day = source["rain_day"];
             this.rain_night = source["rain_night"];
+            this.tmrw_rain_day = source["tmrw_rain_day"];
+            this.tmrw_rain_night = source["tmrw_rain_night"];
             this.fine_dust = source["fine_dust"];
             this.ultra_dust = source["ultra_dust"];
             this.uv = source["uv"];

@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"fmt"
+	"time"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/menu"
@@ -16,11 +17,14 @@ import (
 var assets embed.FS
 
 func main() {
+	currentTime := time.Now()
+	date := currentTime.Format("2006-01-02")
+
 	// Create an instance of the app structure
 	app := NewApp()
 
 	AppMenu := menu.NewMenu()
-	TextMenu := AppMenu.AddSubmenu("?")
+	TextMenu := AppMenu.AddSubmenu(date)
 	TextMenu.AddText("Rerun", keys.CmdOrCtrl("i"), func(_ *menu.CallbackData) {
 		fmt.Print("Rerun\n")
 		runtime.WindowReloadApp(app.ctx)
