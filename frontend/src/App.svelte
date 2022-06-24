@@ -8,12 +8,15 @@
     // import logo from "./assets/images/ajou-logo.png";
 
     // import {main} from '../wailsjs/go/models/models'
-
     // var notices: Array<main.Notice>;
     // let notice = new main.Notice()
     // let notices: Array<main.Notice> = [];
 
     import NoticeList from "./components/NoticeList.svelte";
+    import CategoryItem from "./components/category/CategoryItem.svelte";
+    import CategoryList, {
+        categories,
+    } from "./components/category/CategoryList.svelte";
 
     import { GetWeather, Parse } from "../wailsjs/go/main/App";
 
@@ -29,107 +32,62 @@
 
     const ajou_link = "https://www.ajou.ac.kr/kr/ajou/notice.do";
 
+    function make_link(cateId = 1, nums = 7): string {
+        return (
+            ajou_link +
+            "?mode=list&srCategoryId=" +
+            cateId +
+            "&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" +
+            nums
+        );
+    }
+
     function updateNotice(menu = 1) {
         let category = "";
 
         switch (menu) {
             case 2: {
-                category =
-                    ajou_link +
-                    "?mode=list&srCategoryId=" +
-                    1 +
-                    "&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" +
-                    number_of_notice;
+                category = make_link(1, number_of_notice);
                 break;
             }
             case 3: {
-                category =
-                    ajou_link +
-                    "?mode=list&srCategoryId=" +
-                    2 +
-                    "&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" +
-                    number_of_notice;
+                category = make_link(2, number_of_notice);
                 break;
             }
             case 4: {
-                category =
-                    ajou_link +
-                    "?mode=list&srCategoryId=" +
-                    3 +
-                    "&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" +
-                    number_of_notice;
+                category = make_link(3, number_of_notice);
                 break;
             }
             case 5: {
-                category =
-                    ajou_link +
-                    "?mode=list&srCategoryId=" +
-                    4 +
-                    "&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" +
-                    number_of_notice;
+                category = make_link(4, number_of_notice);
                 break;
             }
             case 6: {
-                category =
-                    ajou_link +
-                    "?mode=list&srCategoryId=" +
-                    5 +
-                    "&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" +
-                    number_of_notice;
+                category = make_link(5, number_of_notice);
                 break;
             }
             case 7: {
-                category =
-                    ajou_link +
-                    "?mode=list&srCategoryId=" +
-                    6 +
-                    "&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" +
-                    number_of_notice;
+                category = make_link(6, number_of_notice);
                 break;
             }
             case 8: {
-                category =
-                    ajou_link +
-                    "?mode=list&srCategoryId=" +
-                    7 +
-                    "&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" +
-                    number_of_notice;
+                category = make_link(7, number_of_notice);
                 break;
             }
             case 9: {
-                category =
-                    ajou_link +
-                    "?mode=list&srCategoryId=" +
-                    8 +
-                    "&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" +
-                    number_of_notice;
+                category = make_link(8, number_of_notice);
                 break;
             }
             case 10: {
-                category =
-                    ajou_link +
-                    "?mode=list&srCategoryId=" +
-                    166 +
-                    "&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" +
-                    number_of_notice;
+                category = make_link(166, number_of_notice);
                 break;
             }
             case 11: {
-                category =
-                    ajou_link +
-                    "?mode=list&srCategoryId=" +
-                    167 +
-                    "&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" +
-                    number_of_notice;
+                category = make_link(167, number_of_notice);
                 break;
             }
             case 12: {
-                category =
-                    ajou_link +
-                    "?mode=list&srCategoryId=" +
-                    168 +
-                    "&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" +
-                    number_of_notice;
+                category = make_link(168, number_of_notice);
                 break;
             }
             default: {
@@ -137,145 +95,25 @@
                 break;
             }
         }
-
         notices_promise = Parse(category, number_of_notice);
     }
 </script>
 
 <main>
-    <ul id="menu">
-        <li>
-            <a
-                class="category"
-                href="/"
-                on:click|preventDefault={() => {
-                    last_menu = 1;
-                    updateNotice(1);
-                }}>전체 공지</a
-            >
-        </li>
-        |
-        <li>
-            <a
-                class="category"
-                href="/"
-                on:click|preventDefault={() => {
-                    last_menu = 2;
-                    updateNotice(2);
-                }}>학사</a
-            >
-        </li>
-        |
-        <li>
-            <a
-                class="category"
-                href="/"
-                on:click|preventDefault={() => {
-                    last_menu = 3;
-                    updateNotice(3);
-                }}>비교과</a
-            >
-        </li>
-        |
-        <li>
-            <a
-                class="category"
-                href="/"
-                on:click|preventDefault={() => {
-                    last_menu = 4;
-                    updateNotice(4);
-                }}>장학</a
-            >
-        </li>
-        |
-        <li>
-            <a
-                class="category"
-                href="/"
-                on:click|preventDefault={() => {
-                    last_menu = 5;
-                    updateNotice(5);
-                }}>학술</a
-            >
-        </li>
-        |
-        <li>
-            <a
-                class="category"
-                href="/"
-                on:click|preventDefault={() => {
-                    last_menu = 6;
-                    updateNotice(6);
-                }}>입학</a
-            >
-        </li>
-        |
-        <li>
-            <a
-                class="category"
-                href="/"
-                on:click|preventDefault={() => {
-                    last_menu = 7;
-                    updateNotice(7);
-                }}>취업</a
-            >
-        </li>
-        |
-        <li>
-            <a
-                class="category"
-                href="/"
-                on:click|preventDefault={() => {
-                    last_menu = 8;
-                    updateNotice(8);
-                }}>사무</a
-            >
-        </li>
-        |
-        <li>
-            <a
-                class="category"
-                href="/"
-                on:click|preventDefault={() => {
-                    last_menu = 9;
-                    updateNotice(9);
-                }}>기타</a
-            >
-        </li>
-        |
-        <li>
-            <a
-                class="category"
-                href="/"
-                on:click|preventDefault={() => {
-                    last_menu = 10;
-                    updateNotice(10);
-                }}>행사</a
-            >
-        </li>
-        |
-        <li>
-            <a
-                class="category"
-                href="/"
-                on:click|preventDefault={() => {
-                    last_menu = 11;
-                    updateNotice(11);
-                }}>파란학기제</a
-            >
-        </li>
-        |
-        <li>
-            <a
-                class="category"
-                href="/"
-                on:click|preventDefault={() => {
-                    last_menu = 12;
-                    updateNotice(12);
-                }}>학사일정</a
-            >
-        </li>
-    </ul>
+    <CategoryList>
+        {#each categories as cate, i}
+            <CategoryItem
+                callback={() => {
+                    last_menu = cate.id;
+                    updateNotice(cate.id);
+                }}
+                name={cate.name}
+            />
+            {#if i != 11}
+            &nbsp;|&nbsp;
+            {/if}
+        {/each}
+    </CategoryList>
 
     <!-- <img alt="ajou logo" id="logo" src={logo} /> -->
     {#await weather_promise}
@@ -321,61 +159,20 @@
 </main>
 
 <style>
-    #logo {
+    /* #logo {
         display: block;
         width: 200px;
         height: 182px;
         margin: auto;
-        /* padding: 10% 0 0; */
+        padding: 10% 0 0;
         background-position: center;
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-origin: content-box;
-    }
+    } */
 
     #weather {
         width: 10%;
     }
 
-    ul#menu li {
-        display: inline;
-    }
-
-    a {
-        color: inherit;
-        -webkit-transition: 0.2s;
-    }
-
-    a:hover {
-        color: hotPink;
-    }
-
-    @media (-webkit-min-device-pixel-ratio: 0) {
-        a {
-            background-color: white;
-            background-image: -webkit-linear-gradient(
-                left,
-                hotPink 0%,
-                orange 50%,
-                transparent 50%
-            );
-            background-position: 100% 0;
-            background-size: 200% 200%;
-            color: transparent;
-            -webkit-transition: 0.1s 0.2s;
-            -webkit-background-clip: text;
-        }
-        a:hover {
-            background-position: 0 0;
-            color: transparent;
-            transition: 0.4s 0;
-        }
-    }
-
-    ul#menu,
-    .category {
-        font-size: 1.25rem;
-        font-weight: bold;
-        text-decoration: none;
-    }
 </style>
