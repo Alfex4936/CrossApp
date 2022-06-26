@@ -32,70 +32,18 @@
 
     const ajou_link = "https://www.ajou.ac.kr/kr/ajou/notice.do";
 
-    function make_link(cateId = 1, nums = 7): string {
-        return (
-            ajou_link +
-            "?mode=list&srCategoryId=" +
-            cateId +
-            "&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" +
-            nums
-        );
+    function make_link(cateId = 0, nums = 7): string {
+        let basic = ajou_link + "?mode=list";
+        basic += ("&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" + nums);
+
+        if (cateId > 0) {
+            basic += "&srCategoryId=" + cateId
+        }
+        return basic;
     }
 
-    function updateNotice(menu = 1) {
-        let category = "";
-
-        switch (menu) {
-            case 2: {
-                category = make_link(1, number_of_notice);
-                break;
-            }
-            case 3: {
-                category = make_link(2, number_of_notice);
-                break;
-            }
-            case 4: {
-                category = make_link(3, number_of_notice);
-                break;
-            }
-            case 5: {
-                category = make_link(4, number_of_notice);
-                break;
-            }
-            case 6: {
-                category = make_link(5, number_of_notice);
-                break;
-            }
-            case 7: {
-                category = make_link(6, number_of_notice);
-                break;
-            }
-            case 8: {
-                category = make_link(7, number_of_notice);
-                break;
-            }
-            case 9: {
-                category = make_link(8, number_of_notice);
-                break;
-            }
-            case 10: {
-                category = make_link(166, number_of_notice);
-                break;
-            }
-            case 11: {
-                category = make_link(167, number_of_notice);
-                break;
-            }
-            case 12: {
-                category = make_link(168, number_of_notice);
-                break;
-            }
-            default: {
-                category = "";
-                break;
-            }
-        }
-        notices_promise = Parse(category, number_of_notice);
+    function updateNotice(cate_id) {
+        notices_promise = Parse(make_link(cate_id, number_of_notice), number_of_notice);
     }
 </script>
 
@@ -147,7 +95,7 @@
         bind:value={number_of_notice}
         placeholder="공지 갯수"
     />
-    <button on:click={() => updateNotice(last_menu)}>공지 불러오기</button>
+    <button on:click={() => (notices_promise = Parse(make_link(last_menu, number_of_notice), number_of_notice))}>공지 불러오기</button>
 
     {#await notices_promise}
         <p>💌 공지 불러오는 중...</p>

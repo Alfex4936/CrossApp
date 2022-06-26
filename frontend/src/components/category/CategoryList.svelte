@@ -1,51 +1,51 @@
 <script context="module">
     export let categories = [
         {
-            id: 1,
+            id: 0,
             name: "전체 공지",
         },
         {
-            id: 2,
+            id: 1,
             name: "학사",
         },
         {
-            id: 3,
+            id: 2,
             name: "비교과",
         },
         {
-            id: 4,
+            id: 3,
             name: "장학",
         },
         {
-            id: 5,
+            id: 4,
             name: "학술",
         },
         {
-            id: 6,
+            id: 5,
             name: "입학",
         },
         {
-            id: 7,
+            id: 6,
             name: "취업",
         },
         {
-            id: 8,
+            id: 7,
             name: "사무",
         },
         {
-            id: 9,
+            id: 8,
             name: "기타",
         },
         {
-            id: 10,
+            id: 166,
             name: "행사",
         },
         {
-            id: 11,
+            id: 167,
             name: "파란학기제",
         },
         {
-            id: 12,
+            id: 168,
             name: "학사일정",
         },
     ]

@@ -17,5 +17,6 @@
         display: table;
         margin-left: auto;
         margin-right: auto;
+        list-style-type: decimal;
     }
 </style>

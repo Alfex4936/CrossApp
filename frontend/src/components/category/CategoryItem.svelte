@@ -12,6 +12,7 @@
 <style>
     a {
         color: inherit;
+        transition: 0.2s;
         -webkit-transition: 0.2s;
     }
 
@@ -31,6 +32,8 @@
             background-position: 100% 0;
             background-size: 200% 200%;
             color: transparent;
+            transition: 0.1s 0.2s;
+            background-clip: text;
             -webkit-transition: 0.1s 0.2s;
             -webkit-background-clip: text;
         }
