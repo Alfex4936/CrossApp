@@ -23,6 +23,7 @@
     let weather_promise = GetWeather();
     let notices_promise = Parse("", 7);
     let number_of_notice = 7;
+    let keyword_of_notice = "";
     let last_menu = 1;
 
     // let weather_updater: ReturnType<typeof setTimeout>
@@ -32,18 +33,21 @@
 
     const ajou_link = "https://www.ajou.ac.kr/kr/ajou/notice.do";
 
-    function make_link(cateId = 0, nums = 7): string {
+    function make_link(cateId = 0, nums = 7, search = ""): string {
         let basic = ajou_link + "?mode=list";
-        basic += ("&srSearchKey=&srSearchVal=&article.offset=0&articleLimit=" + nums);
+        basic += ("&article.offset=0&articleLimit=" + nums);
+        basic += ("&srSearchKey=&srSearchVal=" + encodeURI(search))
 
         if (cateId > 0) {
             basic += "&srCategoryId=" + cateId
         }
+
+        console.log(basic);
         return basic;
     }
 
-    function updateNotice(cate_id) {
-        notices_promise = Parse(make_link(cate_id, number_of_notice), number_of_notice);
+    function updateNotice(cate_id = 0) {
+        notices_promise = Parse(make_link(cate_id, number_of_notice, keyword_of_notice), number_of_notice);
     }
 </script>
 
@@ -93,9 +97,23 @@
         style="text-align:center"
         name="notice"
         bind:value={number_of_notice}
+        on:input={updateNotice}
         placeholder="공지 갯수"
     />
-    <button on:click={() => (notices_promise = Parse(make_link(last_menu, number_of_notice), number_of_notice))}>공지 불러오기</button>
+
+    <input
+        type="text"
+        minlength="1"
+        maxlength="15"
+        style="text-align:center"
+        name="keyword"
+        bind:value={keyword_of_notice}
+        on:change={updateNotice}
+        placeholder="공지 검색"
+    />
+
+    <!-- <button on:click={() => (notices_promise = Parse(make_link(last_menu, number_of_notice), number_of_notice))}>공지 불러오기</button> -->
+    <!-- <button on:click={() => (notices_promise = Parse(make_link(last_menu, number_of_notice), number_of_notice))}>공지 검색</button> -->
 
     {#await notices_promise}
         <p>💌 공지 불러오는 중...</p>

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -31,11 +32,6 @@ func (b *App) shutdown(ctx context.Context) {
 
 }
 
-// Greet returns a greeting for the given name
-func (a *App) Greet(name string) string {
-	return name
-}
-
 // Notice ...
 type Notice struct {
 	ID       int64  `json:"id"`
@@ -63,10 +59,12 @@ func (a *App) Parse(url string, length int) ([]Notice, error) {
 	doc := soup.HTMLParse(resp)
 
 	ids := doc.FindAll("td", "class", "b-num-box")
-	if len(ids) == 0 {
-		fmt.Println("[Parser] Check your parser.")
-		return notices, err
-	}
+	// if len(ids) == 0 {
+	// 	fmt.Println("[Parser] Check your parser.")
+	// 	return notices, err
+	// }
+
+	top_notices := len(ids)
 
 	titles := doc.FindAll("div", "class", "b-title-box")
 	dates := doc.FindAll("span", "class", "b-date")
@@ -78,6 +76,7 @@ func (a *App) Parse(url string, length int) ([]Notice, error) {
 		if err != nil {
 			continue // 최상위 공지
 		}
+		top_notices--
 		title := strings.TrimSpace(titles[i].Find("a").Text())
 		link := titles[i].Find("a").Attrs()["href"]
 		category := strings.TrimSpace(categories[i].Text())
@@ -94,6 +93,10 @@ func (a *App) Parse(url string, length int) ([]Notice, error) {
 	}
 
 	// fmt.Printf("%v", notices)
+
+	if top_notices == len(ids) {
+		return notices, errors.New("[Parser] No notices")
+	}
 
 	return notices, nil
 }

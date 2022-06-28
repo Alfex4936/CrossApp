@@ -1,4 +1,3 @@
-<!-- TodoList.svelte -->
 <script>
     import NoticeItem from "./NoticeItem.svelte";
 
