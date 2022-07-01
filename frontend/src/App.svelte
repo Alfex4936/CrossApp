@@ -8,25 +8,6 @@
 
     import FullCalendar, { type CalendarOptions } from "svelte-fullcalendar";
     import daygridPlugin from "@fullcalendar/daygrid";
-    let options: CalendarOptions = {
-        // dateClick: (event) => alert('date click! ' + event.dateStr),
-        events: [
-            { title: "하계방학 시작, 2학기 휴학·복학 신청 시작", date: "2022-06-30" },
-            { title: "2학기 1차 복학 신청", start: "2022-06-30", end: "2022-07-19" },
-            { title: "2학기 등록", start: "2022-06-30", end: "2022-07-19" },
-            { title: "2학기 예비 수강신청", start: "2022-07-21", end: "2022-07-23" },
-            { title: "2학기 수강신청", start: "2022-08-08", end: "2022-08-12" },
-            { title: "광복절", date: "2022-08-15" },
-            { title: "2학기 개강", date: "2022-09-01" },
-            { title: "추석 연휴", start: "2022-09-09", end: "2022-09-12" },
-            { title: "개천절", date: "2022-10-03" },
-            { title: "한글날", date: "2022-10-09" },
-            { title: "2학기 중간시험", start: "2022-10-20", end: "2022-10-26" },
-        ],
-        initialView: "dayGridMonth",
-        locale: "ko",
-        plugins: [daygridPlugin],
-    };
 
     import NoticeList from "./components/NoticeList.svelte";
     import { Tabs, Tab, TabList, TabPanel } from "svelte-tabs";
@@ -34,7 +15,19 @@
     import CategoryList, {
         categories,
     } from "./components/category/CategoryList.svelte";
+    import { ajou_events } from "./components/EventList.svelte";
     import { GetWeather, Parse } from "../wailsjs/go/main/App";
+    // TODO: animated tabs
+
+    let options: CalendarOptions = {
+        // dateClick: (event) => alert('date click! ' + event.dateStr),
+        events: ajou_events,
+        initialView: "dayGridMonth",
+        locale: "ko",
+        plugins: [daygridPlugin],
+    };
+
+    let bb_iframe = "";
 
     let weather_promise = GetWeather();
     let notices_promise = Parse("", 7);
@@ -69,18 +62,19 @@
 
 <svelte:head>
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous"> -->
-    <link
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <!-- <link
         rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    /> -->
 </svelte:head>
 
 <main>
     <Tabs>
         <TabList>
-            <Tab>공지사항</Tab>
-            <Tab>학사일정</Tab>
-            <Tab>Three</Tab>
+            <Tab>공지 사항</Tab>
+            <Tab>학사 일정</Tab>
+            <Tab>인물 검색</Tab>
         </TabList>
 
         <!-- 공지사항 -->
@@ -167,7 +161,15 @@
 
         <!-- ㅊ -->
         <TabPanel>
-            <h2>Panel Three</h2>
+            <iframe
+                class="media"
+                src="https://mportal.ajou.ac.kr/system/phone/phone.do"
+                title="아주 BB"
+                width="90%"
+                height="700px"
+                frameborder="0"
+            />
+            <!-- {@html bb_iframe} -->
         </TabPanel>
         <!-- ㅊ -->
     </Tabs>
@@ -211,4 +213,10 @@
     /* :global(.fc-today-button:after) {
         content: "오늘";
     } */
+
+    .media {
+        -webkit-box-shadow: 10px 10px 61px 6px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 10px 10px 61px 6px rgba(0, 0, 0, 0.75);
+        box-shadow: 10px 10px 61px 6px rgba(0, 0, 0, 0.75);
+    }
 </style>
