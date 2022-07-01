@@ -1,22 +1,18 @@
 <script lang="ts">
-    // import logo from "./assets/images/ajou-logo.png";
-
-    // import {main} from '../wailsjs/go/models/models'
-    // var notices: Array<main.Notice>;
-    // let notice = new main.Notice()
-    // let notices: Array<main.Notice> = [];
-
     import FullCalendar, { type CalendarOptions } from "svelte-fullcalendar";
     import daygridPlugin from "@fullcalendar/daygrid";
 
     import NoticeList from "./components/NoticeList.svelte";
+    import PeopleList from "./components/PeopleList.svelte";
+
     import { Tabs, Tab, TabList, TabPanel } from "svelte-tabs";
     import CategoryItem from "./components/category/CategoryItem.svelte";
     import CategoryList, {
         categories,
     } from "./components/category/CategoryList.svelte";
+
     import { ajou_events } from "./components/EventList.svelte";
-    import { GetWeather, Parse } from "../wailsjs/go/main/App";
+    import { GetPeople, GetWeather, Parse } from "../wailsjs/go/main/App";
     // TODO: animated tabs
 
     let options: CalendarOptions = {
@@ -28,6 +24,9 @@
     };
 
     let weather_promise = GetWeather();
+    let people_promise = GetPeople("");
+    let keyword_of_people = "";
+
     let notices_promise = Parse("", 7);
     let number_of_notice = 7;
     let last_cate = 0;
@@ -56,6 +55,10 @@
             make_link(last_cate, number_of_notice, keyword_of_notice),
             number_of_notice
         );
+    }
+
+    function updatePeople() {
+        people_promise = GetPeople(keyword_of_people);
     }
 </script>
 
@@ -160,14 +163,32 @@
 
         <!-- ㅊ -->
         <TabPanel>
-            <iframe
+            <input
+                type="text"
+                minlength="1"
+                maxlength="15"
+                style="text-align:center"
+                name="keyword"
+                bind:value={keyword_of_people}
+                on:change={updatePeople}
+                placeholder="아주"
+            />
+
+            {#await people_promise}
+                <p>💌 인물 불러오는 중...</p>
+            {:then peoples}
+                <PeopleList {peoples} />
+            {:catch _}
+                <p>인물 불러오는 중 에러 발생!</p>
+            {/await}
+            <!-- <iframe
                 class="media"
                 src="https://mportal.ajou.ac.kr/system/phone/phone.do"
                 title="아주 BB"
                 width="90%"
                 height="700px"
                 frameborder="0"
-            />
+            /> -->
             <!-- {@html bb_iframe} -->
         </TabPanel>
         <!-- ㅊ -->

@@ -57,4 +57,31 @@ export namespace main {
             this.icon = source["icon"];
         }
     }
+    export class People {
+        msgCode: string;
+        bussNm: string;
+        deptCd: string;
+        deptNm: string;
+        email: string;
+        korNm: string;
+        mdfLineNo: string;
+        telNo: string;
+        userNo: string;
+
+        static createFrom(source: any = {}) {
+            return new Weather(source);
+        }
+
+        constructor(source: any = {}) {
+            if ('string' === typeof source) source = JSON.parse(source);
+            this.bussNm = source["bussNm"];
+            this.deptCd = source["deptCd"];
+            this.deptNm = source["deptNm"];
+            this.email = source["email"];
+            this.korNm = source["korNm"];
+            this.mdfLineNo = source["mdfLineNo"];
+            this.telNo = source["telNo"];
+            this.userNo = source["userNo"];
+        }
+    }
 }
