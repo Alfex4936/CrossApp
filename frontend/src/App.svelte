@@ -27,11 +27,10 @@
         plugins: [daygridPlugin],
     };
 
-    let bb_iframe = "";
-
     let weather_promise = GetWeather();
     let notices_promise = Parse("", 7);
     let number_of_notice = 7;
+    let last_cate = 0;
     let keyword_of_notice = "";
 
     // let weather_updater: ReturnType<typeof setTimeout>
@@ -52,9 +51,9 @@
         return basic;
     }
 
-    function updateNotice(cate_id = 0) {
+    function updateNotice() {
         notices_promise = Parse(
-            make_link(cate_id, number_of_notice, keyword_of_notice),
+            make_link(last_cate, number_of_notice, keyword_of_notice),
             number_of_notice
         );
     }
@@ -83,8 +82,8 @@
                 {#each categories as cate, i}
                     <CategoryItem
                         callback={() => {
-                            // last_menu = cate.id;
-                            updateNotice(cate.id);
+                            last_cate = cate.id;
+                            updateNotice();
                         }}
                         name={cate.name}
                     />
