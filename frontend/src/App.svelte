@@ -18,6 +18,9 @@
     let options: CalendarOptions = {
         // dateClick: (event) => alert('date click! ' + event.dateStr),
         events: ajou_events,
+        buttonText: {
+            today: "오늘",
+        },
         initialView: "dayGridMonth",
         locale: "ko",
         plugins: [daygridPlugin],
@@ -161,7 +164,7 @@
         </TabPanel>
         <!-- 학사일정 -->
 
-        <!-- ㅊ -->
+        <!-- 인물검색 -->
         <TabPanel>
             <input
                 type="text"
@@ -191,7 +194,7 @@
             /> -->
             <!-- {@html bb_iframe} -->
         </TabPanel>
-        <!-- ㅊ -->
+        <!-- 인물검색 -->
     </Tabs>
 </main>
 
@@ -222,7 +225,7 @@
         outline: none !important;
     }
     :global(.svelte-tabs li.svelte-tabs__tab) {
-        /* background: blue; */
+        /* color: rgb(55, 55, 55); */
     }
 
     :global(.fc-h-event) {
@@ -230,13 +233,29 @@
         background-color: black;
     }
 
+    /* 일요일 헤더 */
+    :global(th.fc-col-header-cell.fc-day.fc-day-sun > div) {
+        background-color: red;
+    }
+
+    /* 일요일 numbers */
+    :global(.fc-day-sun > div > div.fc-daygrid-day-top > a) {
+        color: red;
+        background-color: white;
+    }
+
+    /* 토요일 헤더 */
+    :global(th.fc-col-header-cell.fc-day.fc-day-sat > div) {
+        background-color: blue;
+    }
+
+    /* 일요일 numbers */
+    :global(.fc-day-sat > div > div.fc-daygrid-day-top > a) {
+        color: blue;
+        background-color: white;
+    }
+
     /* :global(.fc-today-button:after) {
         content: "오늘";
     } */
-
-    .media {
-        -webkit-box-shadow: 10px 10px 61px 6px rgba(0, 0, 0, 0.75);
-        -moz-box-shadow: 10px 10px 61px 6px rgba(0, 0, 0, 0.75);
-        box-shadow: 10px 10px 61px 6px rgba(0, 0, 0, 0.75);
-    }
 </style>

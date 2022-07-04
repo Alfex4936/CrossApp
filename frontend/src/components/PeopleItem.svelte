@@ -1,6 +1,6 @@
 <script>
     export let people;
-    console.log(people);
+    // console.log(people);
 </script>
 
 <li>
