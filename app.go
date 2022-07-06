@@ -3,13 +3,11 @@ package main
 import (
 	"bytes"
 	"context"
-	"crypto/tls"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 	"strconv"
 	"strings"
 
@@ -229,7 +227,7 @@ type People struct {
 	UserNo    int64  `json:"userNo,string"`    // "201900000"
 }
 
-var AjouPeople = os.Getenv("AJOU_PEOPLE")
+var AjouPeople = "https://mportal.ajou.ac.kr/system/phone/selectList.ajax"
 
 // GetPeople searches a given name in AjouPeople link
 func (a *App) GetPeople(keyword string) ([]People, error) {
@@ -238,10 +236,21 @@ func (a *App) GetPeople(keyword string) ([]People, error) {
 
 	// POST
 	jsonValue, _ := json.Marshal(map[string]string{"keyword": keyword})
-
 	// Disable SSL authentication and post jsonValue
-	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
-	resp, err := http.Post((AjouPeople), "application/json;charset=UTF-8", bytes.NewBuffer(jsonValue))
+	// http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+
+	client := &http.Client{}
+	req, err := http.NewRequest("POST", AjouPeople, bytes.NewBuffer(jsonValue))
+	if err != nil {
+		fmt.Println(err)
+		return result, err
+	}
+
+	req.Header.Add("User-Agent", `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36`)
+	req.Header.Add("Content-Type", `application/json;charset=UTF-8`)
+	resp, err := client.Do(req)
+
+	// resp, err := http.Post((AjouPeople), "application/json;charset=UTF-8", bytes.NewBuffer(jsonValue))
 	if err != nil {
 		fmt.Println(err)
 		return result, err
@@ -250,6 +259,7 @@ func (a *App) GetPeople(keyword string) ([]People, error) {
 
 	// Response 체크.
 	respBody, err := io.ReadAll(resp.Body)
+	// fmt.Printf("%s\n", respBody)
 	json.Unmarshal(respBody, &people)
 	if err != nil {
 		fmt.Println(err)

@@ -2,14 +2,14 @@
     import FullCalendar, { type CalendarOptions } from "svelte-fullcalendar";
     import daygridPlugin from "@fullcalendar/daygrid";
 
-    import NoticeList from "./components/NoticeList.svelte";
     import PeopleList from "./components/PeopleList.svelte";
-
-    import { Tabs, Tab, TabList, TabPanel } from "svelte-tabs";
+    import NoticeList from "./components/NoticeList.svelte";
     import CategoryItem from "./components/category/CategoryItem.svelte";
     import CategoryList, {
         categories,
     } from "./components/category/CategoryList.svelte";
+
+    import { Tabs, Tab, TabList, TabPanel } from "svelte-tabs";
 
     import { ajou_events } from "./components/EventList.svelte";
     import { GetPeople, GetWeather, Parse } from "../wailsjs/go/main/App";
@@ -27,7 +27,7 @@
     };
 
     let weather_promise = GetWeather();
-    let people_promise = GetPeople("");
+    let people_promise = GetPeople("아주");
     let keyword_of_people = "";
 
     let notices_promise = Parse("", 7);
