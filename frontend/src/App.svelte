@@ -67,6 +67,7 @@
 
 <svelte:head>
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous"> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous"> -->
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
     <!-- <link
         rel="stylesheet"
@@ -133,7 +134,6 @@
                 on:input={updateNotice}
                 placeholder="공지 갯수"
             />
-
             <input
                 type="text"
                 minlength="1"
@@ -224,9 +224,9 @@
         font-weight: bold;
         outline: none !important;
     }
-    :global(.svelte-tabs li.svelte-tabs__tab) {
-        /* color: rgb(55, 55, 55); */
-    }
+    /* :global(.svelte-tabs li.svelte-tabs__tab) {
+        color: rgb(55, 55, 55);
+    } */
 
     :global(.fc-h-event) {
         border: 1px solid black;
@@ -254,8 +254,4 @@
         color: blue;
         background-color: white;
     }
-
-    /* :global(.fc-today-button:after) {
-        content: "오늘";
-    } */
 </style>

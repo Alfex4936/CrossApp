@@ -7,7 +7,7 @@
 <ul>
     {#each peoples as people (people.id)}
         <PeopleItem {people} />
-        <br />
+        <!-- <br /> -->
     {/each}
 </ul>
 

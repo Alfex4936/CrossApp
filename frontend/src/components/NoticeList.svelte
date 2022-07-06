@@ -7,7 +7,7 @@
 <ul>
     {#each notices as notice (notice.id)}
         <NoticeItem {notice} />
-        <br/>
+        <!-- <br/> -->
     {/each}
 </ul>
 
