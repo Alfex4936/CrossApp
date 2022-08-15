@@ -10,20 +10,20 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@fullcalendar/common": "^5.11.0",
-    "@fullcalendar/core": "^5.11.0",
-    "@fullcalendar/daygrid": "^5.11.0",
+    "@fullcalendar/common": "^5.11.2",
+    "@fullcalendar/core": "^5.11.2",
+    "@fullcalendar/daygrid": "^5.11.2",
     "@sveltejs/kit": "next",
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.49",
+    "@sveltejs/vite-plugin-svelte": "^1.0.1",
     "@tsconfig/svelte": "^3.0.0",
     "node-sass": "^7.0.1",
-    "svelte": "^3.48.0",
-    "svelte-check": "^2.7.2",
+    "svelte": "^3.49.0",
+    "svelte-check": "^2.8.0",
     "svelte-fullcalendar": "^2.0.0-beta.0",
     "svelte-preprocess": "^4.10.7",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",
-    "vite": "^2.9.12"
+    "vite": "^3.0.7"
   },
   "dependencies": {
     "svelte-tabs": "^1.1.0"
